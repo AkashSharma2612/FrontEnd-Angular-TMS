@@ -1,0 +1,116 @@
+<div class="bg-info " style="height:42.1vw;position:relative;">
+    <div class="alert alert-danger w-100" role="alert" style="position: absolute;"
+        *ngIf="DisplaySuccess==true && DisplayName=='danger'">
+        {{DisplayMessage}}
+    </div>
+    <div class="alert alert-success w-100" role="alert" style="position: absolute;"
+        *ngIf='DisplaySuccess==true && DisplayName=="success"'>
+        {{DisplayMessage}}
+    </div>
+    <div class="d-flex justify-content-center align-items-center w-100 bg-info" style="height: 44.1vw;">
+        <div class="card  mh-100" style="width: 35vw;">
+            <div class="card-header text-center bg-success text-white text-uppercase font-weight-bold">
+                Register
+            </div>
+            <div class="card-body bg-info">
+                <form [formGroup]="RegisterFormData">
+                    <div class="row col-12">
+                        <div class="col-4">
+                            <label for="userName" class="text-bold">UserName</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" type="text" placeholder="Enter your UserName" id="userName"
+                                formControlName="UserName" name="UserName" required minlength="3" />
+                            <div
+                                *ngIf="RegisterFormData.get('UserName')?.hasError('required') && RegisterFormData.get('UserName')?.touched">
+                                <span class="text-danger">UserName is Required!!!</span>
+                            </div>
+                            <div
+                                *ngIf="RegisterFormData.get('UserName')?.hasError('minlength') && RegisterFormData.get('UserName')?.touched">
+                                <span class="text-danger">UserName must be 3 characters long!!!</span>
+                            </div>
+                            <div
+                                *ngIf="RegisterFormData.get('UserName')?.hasError('pattern') && RegisterFormData.get('UserName')?.touched">
+                                <span class="text-danger">UserName is not valid!!!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-3">
+                        <div class="col-4">
+                            <label for="Email" class="text-bold">Email</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" type="text" placeholder="Enter your Email" id="Email"
+                                formControlName="Email" name="Email" required />
+                            <div
+                                *ngIf="RegisterFormData.get('Email')?.hasError('required') && RegisterFormData.get('Email')?.touched">
+                                <span class="text-danger">Email is required!!!</span>
+                            </div>
+                            <div
+                                *ngIf="RegisterFormData.get('Email')?.hasError('pattern') && RegisterFormData.get('Email')?.touched">
+                                <span class="text-danger">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-3">
+                        <div class="col-4">
+                            <label for="password" class="text-bold">Password</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" type="password" placeholder="Enter your Password" id="password"
+                                formControlName="Password" name="Password" required />
+                            <div
+                                *ngIf="RegisterFormData.get('Password')?.hasError('required') && RegisterFormData.get('Password')?.touched">
+                                <span class="text-danger">Password is required!!!</span>
+                            </div>
+                            <div
+                                *ngIf="RegisterFormData.get('Password')?.hasError('pattern') && RegisterFormData.get('Password')?.touched">
+                                <span class="text-danger">Password must be greater than 8 and less than 15 and must
+                                    contain small
+                                    letters,capital letters,@ and some digits</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-3">
+                        <div class="col-4">
+                            <label for="confirmpassword" class="text-bold">Confirm Password</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" type="password" placeholder="Enter your Confirm Password"
+                                id="confirmpassword" formControlName="ConfirmPassword" name="ConfirmPassword"
+                                required />
+                            <div
+                                *ngIf="RegisterFormData.get('ConfirmPassword')?.hasError('required') && RegisterFormData.get('ConfirmPassword')?.touched">
+                                <span class="text-danger">Confirm Password is required!!!</span>
+                            </div>
+                            <div
+                                *ngIf="RegisterFormData.errors?.['mismatch'] && RegisterFormData.get('ConfirmPassword')?.dirty && RegisterFormData.get('ConfirmPassword')?.value != ''">
+                                <span class="text-danger">Password and Confirm Password not match!!!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-3">
+                        <div class="col-4">
+                            <label for="role" class="text-bold">Role</label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" name="Role" (change)="SelectRoleChange($event)"
+                                formControlName="Role">
+                                <option disabled selected>Select your Role</option>
+                                <option *ngFor="let Role of DisplayRole" [value]="Role">
+                                    {{Role}}
+                                </option>
+                            </select>
+                            <div
+                                *ngIf="(RegisterFormData.get('Role')?.hasError('required') || RegisterFormData.get('Role')?.value=='Select your Role') && RegisterFormData.get('Role')?.touched">
+                                <span class="text-danger">Role is Required!!</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted text-center bg-success">
+                <button type="submit" class="btn btn-info" (click)="RegisterClick()">Register</button>
+            </div>
+        </div>

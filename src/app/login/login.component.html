@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center align-items-center w-100 bg-info" style="height: 44.1vw;">
+  <form [formGroup]="loginForm" class="card col-md-4 text-center p-1 m-1">
+    <div class="card-header bg-info text-white">
+      <h2>Login</h2>
+    </div>
+    <div class="card-body bg-info ">
+      <div class="row col-12">
+        <div class="col-4">
+            <label for="userName" class="text-bold">UserName</label>
+        </div>
+        <div class="col-8">
+            <input class="form-control" type="text" placeholder="Enter your UserName" id="userName"
+                formControlName="UserName" name="UserName" required minlength="3" />
+            <div
+                *ngIf="loginForm.get('UserName')?.hasError('required') && loginForm.get('UserName')?.touched">
+                <span class="text-danger">UserName is Required!!!</span>
+            </div>
+            <div
+                *ngIf="loginForm.get('UserName')?.hasError('minlength') && loginForm.get('UserName')?.touched">
+                <span class="text-danger">UserName must be 5 characters long!!!</span>
+            </div>
+            <div
+                *ngIf="loginForm.get('UserName')?.hasError('pattern') && loginForm.get('UserName')?.touched">
+                <span class="text-danger">UserName is not valid!!!</span>
+            </div>
+        </div>
+    </div>
+      <div class="row col-12 mt-3">
+        <div class="col-4">
+            <label for="password" class="text-bold">Password</label>
+        </div>
+        <div class="col-8">
+            <input class="form-control" type="password" placeholder="Enter your Password" id="password"
+                formControlName="Password" name="Password" required />
+            <div
+                *ngIf="loginForm.get('Password')?.hasError('required') && loginForm.get('Password')?.touched">
+                <span class="text-danger">Password is required!!!</span>
+            </div>
+            <div
+            *ngIf="loginForm.get('Password')?.hasError('pattern') && loginForm.get('Password')?.touched">
+            <span class="text-danger">Password must be greater than 7 and less than 15 and must
+                contain small
+                letters,capital letters,@ and some digits</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="card-footer text-muted bg-info">
+      <button type="submit" (click)="loginClick()" class="btn btn-success"> Login</button>
+    </div>
+</form>
+</div>
